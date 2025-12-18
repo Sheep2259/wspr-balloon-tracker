@@ -135,7 +135,8 @@ void Telemetry::sendExtended(char loc[], uint8_t satellites, uint32_t fix_time) 
     int loc2_int = (loc[8] - '0') * 10 + (loc[9] - '0');
 
     // nonlinear encodings for msg
-    int enc_fixtime = constrain((floor((1/(50+(50*(pow(2.71, ((-0.4*(fix_time/1000))+3)))))) + (fix_time/40000000))), 0, 24);
+    int enc_fixtime = constrain((int)(1000.0 * ((1.0 / (50.0 + 50.0 * pow(2.71, 
+        (-0.4 * (fix_time / 1000.0)) + 3.0))) + (fix_time / 40000000.0))), 0, 24);
 
     // set values
     msg.Set("Loc", loc_int);
